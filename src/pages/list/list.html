@@ -1,0 +1,19 @@
+<ion-content id="list">
+  <ion-list>
+    <ion-item-sliding *ngFor="let user of users | async">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{user.photoURL}}">
+        </ion-avatar>
+        <h2>{{user.displayName}}</h2>
+        <h3>{{user.topic}}</h3>
+        <p>{{user.times}}</p><p>{{user.prices}}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="primary" large>
+          <ion-icon name="text"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

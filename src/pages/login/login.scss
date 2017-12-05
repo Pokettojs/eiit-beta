@@ -1,0 +1,16 @@
+login-page{
+    #login{
+        background-image: url('../assets/imgs/gif_profile.gif');
+        background-size: cover;
+        h1{
+            font-size: 60px;
+            margin-top: 50px;
+        }
+        ion-col{
+            text-align: center;
+        }
+        button{
+            margin-top: 50%;
+        }
+    }
+}

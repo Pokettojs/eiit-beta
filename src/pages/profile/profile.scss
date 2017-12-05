@@ -1,0 +1,52 @@
+profile-tab {
+    #segments{
+        ion-segment-button{
+            color: map-get($colors, light);
+            border-bottom-color: map-get($colors, light);
+        }
+    }
+    #bodyBack{
+        background: #ecf0f1;
+    }
+    #back{
+        background-image: url('../assets/imgs/gif_profile.gif');
+        background-size: cover;
+        
+        height: 120px;
+        ion-col{
+            img{
+                margin-top: 30px;
+                border-radius: 50%;
+                border: map-get($colors, primary) solid 3px;
+            }
+            h4{
+                color: white;
+            }
+            p{
+                margin-top: -10px;
+                font-size: 40px;
+                text-align: center;
+                color: white;
+            }
+            h5{
+                margin-top: -30px;
+                text-align: center;
+                color: white;
+            }
+        }
+    }
+    #bf-body{
+        ion-col{
+            p{
+                position: absolute;
+                top: -10px;
+            }
+        }
+    }
+    #body{
+        margin-top: 20px;
+    }
+    #closeIcon{
+        margin-left: 10px;
+    }
+}

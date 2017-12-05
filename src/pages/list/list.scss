@@ -1,0 +1,15 @@
+list-tab {
+    #list{
+        ion-icon{
+            font-size: 1.9em;
+            padding-top: 10px;
+        }
+    }
+    ion-avatar{
+        img:first-child {
+            border: 1px solid #9b59b6;
+            padding: 2px;
+        }
+    }
+
+}

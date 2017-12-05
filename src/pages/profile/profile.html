@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-navbar color="primary" no-border-bottom>
+      <ion-segment id="segments" [(ngModel)]="window">
+          <ion-segment-button value="profile">
+            Perfil
+          </ion-segment-button>
+          <ion-segment-button value="messages">
+            Mensajes
+          </ion-segment-button>
+        </ion-segment>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content id="bodyBack">
+  <div [ngSwitch]="window">
+    <div *ngSwitchCase="'profile'">
+      <div *ngIf="auth.user | async as user">
+        <div id="back">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4>
+                <img src="{{user.photoURL}}" alt="user">
+              </ion-col>
+              <ion-col col-8>
+                <p>{{user.votesCount}}</p>
+                <h5>Likes</h5>
+                <h4>{{user.displayName}}</h4>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div id="bf-body">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4>
+              </ion-col>
+              <ion-col col-8>
+                <p>{{user.email}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div id="body">
+            <div *ngIf="user.topic">
+              <ion-card>
+                <ion-card-header>
+                  {{user.topic}}
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-item *ngIf="user.times && !isUpdatingTimes">
+                      <ion-label color="primary">Horarios: {{user.times}} <ion-icon name="create" (click)="setUpdateTimes(user.times)"></ion-icon></ion-label>
+                    </ion-item>
+                    <div *ngIf="user.times && isUpdatingTimes">
+                      <ion-item>
+                          <ion-label color="primary" floating>Horarios</ion-label>
+                          <ion-input [(ngModel)]="times" autofocus></ion-input>
+                      </ion-item>
+                      <ion-item >
+                          <ion-label color="primary"><ion-icon name="checkmark" (click)="updateTimes(user.uid, times)"></ion-icon><ion-icon id="closeIcon" name="close" (click)="unsetUpdateTimes()"></ion-icon></ion-label>
+                      </ion-item>
+                    </div>
+                    <ion-item *ngIf="!user.times">
+                      <ion-label color="primary" floating>Horarios</ion-label>
+                      <ion-input [(ngModel)]="times"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="user.prices && !isUpdatingPrices">
+                      <ion-label color="primary">Precios: {{user.prices}} <ion-icon name="create" (click)="setUpdatePrices(user.prices)"></ion-icon></ion-label>
+                    </ion-item>
+                    <div *ngIf="user.prices && isUpdatingPrices">
+                        <ion-item >
+                            <ion-label color="primary" floating>Precios</ion-label>
+                            <ion-input [(ngModel)]="prices" autofocus></ion-input>
+                        </ion-item>
+                        <ion-item >
+                            <ion-label color="primary"><ion-icon name="checkmark" (click)="updatePrices(user.uid, prices)"></ion-icon><ion-icon id="closeIcon" name="close" (click)="unsetUpdatePrices()"></ion-icon></ion-label>
+                        </ion-item>
+                    </div>
+                    <ion-item *ngIf="!user.prices">
+                      <ion-label color="primary" floating>Precios</ion-label>
+                      <ion-input [(ngModel)]="prices"></ion-input>
+                    </ion-item>
+                  <button *ngIf="!user.prices && !user.times" ion-button block (click)="setExtras(user.uid, times, prices)">
+                    <ion-icon name="checkmark"> Guardar</ion-icon>
+                  </button>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div *ngIf="!user.topic">
+              <ion-card *ngIf="!isAdding">
+                <ion-card-header>
+                  Oh...?
+                </ion-card-header>
+                <ion-card-content>
+                  Parece que no tienes ningun tema asignado, te gustaría agregar uno en estos momentos?
+                  <button ion-button block (click)="setIsAdding()">
+                    <ion-icon name="add"> Agregar</ion-icon>
+                  </button>
+                </ion-card-content>
+              </ion-card>
+              <ion-card *ngIf="isAdding">
+                <ion-card-header>
+                  Agregar Tema
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-item>
+                    <ion-label color="primary" floating>Tema</ion-label>
+                    <ion-input [(ngModel)]="topic"></ion-input>
+                  </ion-item>
+                  <button ion-button block (click)="setTopic(topic, user.uid)">
+                    <ion-icon name="add"> Agregar</ion-icon>
+                  </button>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngSwitchCase="'messages'">
+        <h1>Mensajes</h1>
+      </div>
+  </div>
+</ion-content>
